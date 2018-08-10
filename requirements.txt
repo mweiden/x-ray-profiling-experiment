@@ -1,0 +1,4 @@
+boto3
+aws-xray-sdk
+flask-lambda-python36
+Flask==0.12.2

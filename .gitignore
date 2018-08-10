@@ -102,3 +102,7 @@ ENV/
 
 # IDE
 .idea/
+
+*.zip
+
+.terraform/

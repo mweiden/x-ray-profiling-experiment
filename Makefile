@@ -1,6 +1,3 @@
-ZIP_FILE := LogRetentionPolicyEnforcer_App.zip
-TARGET := target/$(ZIP_FILE)
-
 default: build
 
 .PHONY: install
@@ -24,13 +21,11 @@ test:
 build:
 	. venv/bin/activate && pip install -r requirements.txt -t target/ --upgrade
 	cp app.py target/
-	cd target && zip -r $(ZIP_FILE) ../*.py ../lib/*.py *
 
 terraform-%:
 	. venv/bin/activate && terraform $(*) \
-		-var "target_zip_path=$(TARGET)" \
 		-var "aws_profile=$(AWS_PROFILE)" \
-		$(shell [[ "$(*)" == "apply" ]] && echo "-auto-approve" || echo "")
+		$(shell bash -c '[[ "$(*)" == "apply" ]] && echo "-auto-approve" || echo ""')
 
 .PHONY: deploy
 deploy: terraform-apply
